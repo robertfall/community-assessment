@@ -8,10 +8,10 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-inverse">
+        <nav className="navbar navbar-inverse navbar-fixed-top">
           <div className="container-fluid">
             <div className="navbar-header">
-              <a className="navbar-brand" href="#">Community Assessment</a>
+              <span className="navbar-brand">Community Assessment</span>
             </div>
             <ul className="nav navbar-nav">
               <li><a href="#">Forms</a></li>

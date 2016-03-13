@@ -8,9 +8,40 @@ const form = {
     'address.address',
     'address.area',
     'address.directions',
+
     'careWorker.nameAndSurname',
-    'careWorker.telephoneNumber'
+    'careWorker.telephoneNumber',
+
+    'headOfHousehold.name',
+    'headOfHousehold.surname',
+    'headOfHousehold.gender',
+    'headOfHousehold.maritalStatus',
+    'headOfHousehold.dateOfBirth',
+    'headOfHousehold.occupation',
+    'headOfHousehold.age',
+    'headOfHousehold.foreignNational',
+    'headOfHousehold.comment',
+
+    'house.wallsMadeOf',
+    'house.wallsCondition',
+    'house.wallsConditionComments',
+    'house.roofMadeOf',
+    'house.roofCondition',
+    'house.roofConditionComments',
+    'house.comments',
+
+    'sanitationAndWater.sourceOfWater',
+    'sanitationAndWater.toilet',
+    'sanitationAndWater.waterPurificationMeasures',
   ]
 };
 
-export default connect(form)(Form);
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmit: (account) => {
+      debugger;
+    },
+  };
+}
+
+export default connect(form, mapDispatchToProps)(Form);

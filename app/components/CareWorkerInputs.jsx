@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import TextField from './inputs/TextField';
 
 export default class CareWorkerInputs extends Component {
   static propTypes = {
@@ -9,45 +10,15 @@ export default class CareWorkerInputs extends Component {
   render() {
     const { nameAndSurname, telephoneNumber } = this.props;
     return (
-      <div className="col-md-12" id="addressSection">
+      <div className="col-md-12" id="careWorkerSection">
         <div className="form-group">
-          <h3 className="col-md-6">Ward-Based Care Worker</h3>
+          <h3 className="col-md-6 col-md-offset-4">Ward-Based Care Worker</h3>
         </div>
-
         <div className="form-group">
-          <label
-            htmlFor="nameAndSurname"
-            className="col-md-4 control-label"
-          >
-            Name & Surname
-          </label>
-          <div className="col-md-6">
-            <input
-              type="text"
-              className="form-control"
-              id="nameAndSurname"
-              name="nameAndSurname"
-              {...nameAndSurname}
-            />
-          </div>
+          <TextField bindings={nameAndSurname} label="Name & Surname" />
         </div>
-
         <div className="form-group">
-          <label
-            htmlFor="telephoneNumber"
-            className="col-md-4 control-label"
-          >
-            Telephone Number
-          </label>
-          <div className="col-md-6">
-            <input
-              type="text"
-              className="form-control"
-              id="telephoneNumber"
-              name="telephoneNumber"
-              {...telephoneNumber}
-            />
-          </div>
+          <TextField bindings={telephoneNumber} />
         </div>
       </div>
     );
