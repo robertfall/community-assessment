@@ -21,9 +21,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
-});
+app.on('window-all-closed', () => app.quit());
 
 
 app.on('ready', () => {
@@ -34,10 +32,6 @@ app.on('ready', () => {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
-
-  if (process.env.NODE_ENV === 'development') {
-    mainWindow.openDevTools();
-  }
 
   if (process.platform === 'darwin') {
     template = [{
