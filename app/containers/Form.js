@@ -33,13 +33,21 @@ const form = {
     'sanitationAndWater.sourceOfWater',
     'sanitationAndWater.toilet',
     'sanitationAndWater.waterPurificationMeasures',
+
+    'nutrition.food',
+    'nutrition.foodComments',
+    'nutrition.cookingEnergy',
+    'nutrition.cookingComments',
+    'nutrition.heatingEnergy',
+    'nutrition.heatingComments',
+    'nutrition.lightingEnergy',
+    'nutrition.lightingComments',
   ]
 };
 
 function mapDispatchToProps(dispatch) {
   return {
     onSubmit: (account) => {
-      debugger;
     },
   };
 }

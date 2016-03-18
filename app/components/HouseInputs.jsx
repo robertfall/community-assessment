@@ -25,7 +25,7 @@ export default class HouseInputs extends Component {
     } = this.props;
 
     return (
-      <div className="col-md-12" id="headOfHouseholdSection">
+      <div className="col-md-12" id="houseSection">
         <div className="form-group">
           <h3 className="col-md-6 col-md-offset-4">House</h3>
         </div>
