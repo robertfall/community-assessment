@@ -8,6 +8,7 @@ import SanitationAndWaterInputs from './SanitationAndWaterInputs';
 export default class Form extends Component {
   static propTypes = {
     fields: PropTypes.object.isRequired,
+    handleSubmit: PropTypes.func
   }
 
   render() {

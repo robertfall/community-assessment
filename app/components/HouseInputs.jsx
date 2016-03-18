@@ -33,6 +33,7 @@ export default class HouseInputs extends Component {
         <div className="form-group">
           <RadioButtons
             bindings={ wallsMadeOf }
+            includeOther
             options={[
               'Corrugated Iron',
               'Brick',
@@ -59,6 +60,7 @@ export default class HouseInputs extends Component {
         <div className="form-group">
           <RadioButtons
             bindings={ roofMadeOf }
+            includeOther
             options={[
               'Corrugated Iron',
               'Brick',

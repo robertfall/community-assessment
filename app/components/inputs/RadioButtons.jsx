@@ -1,12 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import startCase from 'lodash/startCase';
+import chunk from 'lodash/chunk';
 
-export default class TextField extends Component {
+export default class RadioButtons extends Component {
   static propTypes = {
     bindings: PropTypes.object.isRequired,
     options: PropTypes.array.isRequired,
     name: PropTypes.string,
     label: PropTypes.string,
+    includeOther: PropTypes.bool
   };
 
   labelText() {
@@ -23,20 +25,42 @@ export default class TextField extends Component {
   }
 
   children() {
-    const { options, bindings } = this.props;
-    return options.map((opt) => {
+    const { options, bindings, includeOther } = this.props;
+    const optionsWithOther = includeOther
+                           ? options.concat('other')
+                           : options;
+    return chunk(optionsWithOther, 3).map((row, index) => {
       return (
-        <label className="radio-inline control-label">
-          <input type="radio" name={this.realName()} value={opt} {...bindings}/> {startCase(opt)}
-        </label>
+        <div key={ index }>
+        {
+          row.map((opt) => {
+            return (
+              <label key={opt} className="radio-inline control-label">
+                <input
+                  type="radio"
+                  {...bindings}
+                  value={opt}
+                />
+                {startCase(opt)}
+              </label>
+            );
+          })
+        }
+        </div>
       );
     });
   }
 
+
   render() {
     return (
       <div>
-        <label htmlFor={this.realName()} className="col-md-2 col-md-offset-2 control-label">{this.labelText()}</label>
+        <label
+          htmlFor={this.realName()}
+          className="col-md-2 col-md-offset-2 control-label"
+        >
+          {this.labelText()}
+        </label>
         <div className="col-md-6">
           { this.children() }
         </div>

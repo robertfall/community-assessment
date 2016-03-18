@@ -25,6 +25,7 @@ export default class WaterAndSanitationInputs extends Component {
         <div className="form-group">
           <RadioButtons
             bindings={ sourceOfWater }
+            includeOther
             options={[
               'Tap in House',
               'Tap in Yard',
@@ -39,6 +40,7 @@ export default class WaterAndSanitationInputs extends Component {
         <div className="form-group">
           <RadioButtons
             bindings={ toilet }
+            includeOther
             options={[
               'In the House',
               'In the Yard',
