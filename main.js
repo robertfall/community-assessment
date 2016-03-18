@@ -26,6 +26,7 @@ app.on('window-all-closed', () => app.quit());
 
 app.on('ready', () => {
   mainWindow = new BrowserWindow({ width: 1024, height: 728 });
+  mainWindow.maximize();
 
   mainWindow.loadURL(`file://${__dirname}/app/app.html`);
 
@@ -229,6 +230,7 @@ app.on('ready', () => {
         }
       }]
     }];
+
     menu = Menu.buildFromTemplate(template);
     mainWindow.setMenu(menu);
   }

@@ -4,7 +4,8 @@ import CareWorkerInputs from './CareWorkerInputs';
 import HeadOfHouseholdInputs from './HeadOfHouseholdInputs';
 import HouseInputs from './HouseInputs';
 import SanitationAndWaterInputs from './SanitationAndWaterInputs';
-import NutritionInputs from './NutritionInputs.jsx';
+import NutritionInputs from './NutritionInputs';
+import ChildrenInputs from './ChildrenInputs';
 
 export default class Form extends Component {
   static propTypes = {
@@ -21,10 +22,12 @@ export default class Form extends Component {
         house,
         sanitationAndWater,
         nutrition,
+        children,
       }
     } = this.props;
     return (
       <div className="row">
+        <h1>New Form</h1>
         <form
           className="form-horizontal"
           id="userInputForm"
@@ -36,6 +39,7 @@ export default class Form extends Component {
           <HouseInputs {...house}/>
           <SanitationAndWaterInputs {...sanitationAndWater}/>
           <NutritionInputs {...nutrition}/>
+          <ChildrenInputs {...children}/>
           <div className="form-group">
             <div className="col-md-6 col-md-offset-4">
               <button type="submit" className="btn btn-primary">Save</button>

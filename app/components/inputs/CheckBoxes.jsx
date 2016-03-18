@@ -53,15 +53,17 @@ export default class CheckBoxes extends Component {
         {
           row.map((opt) => {
             return (
-              <label key={opt} className="checkbox-inline control-label">
-                <input
-                  type="checkbox"
-                  name={bindings.name}
-                  onChange={parse(opt)}
-                  checked={includes(bindings.value, opt)}
-                />
-                {startCase(opt)}
-              </label>
+              <div key={opt} className="col-sm-4">
+              <label className="checkbox-inline control-label">
+                  <input
+                    type="checkbox"
+                    name={bindings.name}
+                    onChange={parse(opt)}
+                    checked={includes(bindings.value, opt)}
+                  />
+                  {startCase(opt)}
+                </label>
+              </div>
             );
           })
         }

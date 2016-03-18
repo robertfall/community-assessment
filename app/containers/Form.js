@@ -42,6 +42,17 @@ const form = {
     'nutrition.heatingComments',
     'nutrition.lightingEnergy',
     'nutrition.lightingComments',
+
+    'children.children[].surname',
+    'children.children[].name',
+    'children.children[].gender',
+    'children.children[].dateOfBirth',
+    'children.children[].age',
+    'children.children[].timeBreastfed',
+    'children.children[].timeBottlefed',
+    'children.children[].ageWeaned',
+    'children.children[].immunization',
+    'children.diarrhoeaMixture',
   ]
 };
 

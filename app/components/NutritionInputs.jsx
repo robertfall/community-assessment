@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import TextField from './inputs/TextField';
-import RadioButtons from './inputs/RadioButtons';
 import CheckBoxes from './inputs/CheckBoxes';
 
 export default class NutritionInputs extends Component {

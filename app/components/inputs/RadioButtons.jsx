@@ -35,14 +35,16 @@ export default class RadioButtons extends Component {
         {
           row.map((opt) => {
             return (
-              <label key={opt} className="radio-inline control-label">
-                <input
-                  type="radio"
-                  {...bindings}
-                  value={opt}
-                />
-                {startCase(opt)}
-              </label>
+              <div key={opt} className="col-sm-4">
+                <label className="radio-inline control-label">
+                  <input
+                    type="radio"
+                    {...bindings}
+                    value={opt}
+                  />
+                  {startCase(opt)}
+                </label>
+              </div>
             );
           })
         }
