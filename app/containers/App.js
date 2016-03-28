@@ -19,7 +19,7 @@ export default class App extends Component {
             </ul>
           </div>
         </nav>
-        <div className="container">
+        <div className="container-fluid">
           {this.props.children}
           {
             (() => {

@@ -53,26 +53,60 @@ const form = {
     'children.children[].ageWeaned',
     'children.children[].immunization',
     'children.diarrhoeaMixture',
+    'children.diarrhoeaMixtureRecipe',
 
-    'deaths.deaths[].surname',
-    'deaths.deaths[].name',
-    'deaths.deaths[].gender',
-    'deaths.deaths[].age',
-    'deaths.deaths[].causeOfDeath',
-    'deaths.deaths[].comments',
+    'deaths[].surname',
+    'deaths[].name',
+    'deaths[].gender',
+    'deaths[].age',
+    'deaths[].causeOfDeath',
+    'deaths[].comments',
 
     'environmentAndHealth.environmentalHazards[]',
     'environmentAndHealth.healthInformation[]',
     'environmentAndHealth.lifeImprovements[]',
     'environmentAndHealth.peopleWhoWouldAppreciateVCT',
+
+    'occupants[].surname',
+    'occupants[].name',
+    'occupants[].gender',
+    'occupants[].relationHeadOfHoushold',
+    'occupants[].age',
+    'occupants[].atHomeDuringDay',
+    'occupants[].mobility',
+    'occupants[].selfCare',
+    'occupants[].usualActivity',
+    'occupants[].painOrDiscomfort',
+    'occupants[].anxietyOrDepression',
+    'occupants[].chronicRespiratoryProblems',
+    'occupants[].hypertension',
+    'occupants[].epilepsy',
+    'occupants[].diabetes',
+    'occupants[].chronicMedication',
+    'occupants[].tbMedication',
+    'occupants[].currentCoughing',
+    'occupants[].currentNightSweats',
+    'occupants[].recentWeightLoss',
+    'occupants[].diarrhoea',
+    'occupants[].chronicWound',
+    'occupants[].disability',
+    'occupants[].problemsWithVision',
+    'occupants[].comments',
   ]
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    onSubmit: (account) => {
+function mapStateToProps() {
+  const initialValues = {
+    children: { children: [{}] },
+    deaths: [{}],
+    environmentAndHealth: {
+      environmentalHazards: [''],
+      healthInformation: [''],
+      lifeImprovements: [''],
     },
+    occupants: [{}],
   };
+  return { initialValues };
 }
 
-export default connect(form, mapDispatchToProps)(Form);
+export default connect(form, mapStateToProps)(Form);

@@ -27,7 +27,7 @@ export default class TextField extends Component {
       <div>
         <label
           htmlFor={this.realName()}
-          className="col-md-2 col-md-offset-2 control-label"
+          className="col-md-4 control-label"
         >
           {this.labelText()}
         </label>

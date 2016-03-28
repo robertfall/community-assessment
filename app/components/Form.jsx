@@ -8,6 +8,7 @@ import NutritionInputs from './NutritionInputs';
 import ChildrenInputs from './ChildrenInputs';
 import DeathsInputs from './DeathsInputs';
 import EnvironmentAndHealthInputs from './EnvironmentAndHealthInputs';
+import OccupantsInputs from './OccupantsInputs';
 
 export default class Form extends Component {
   static propTypes = {
@@ -27,6 +28,7 @@ export default class Form extends Component {
         children,
         deaths,
         environmentAndHealth,
+        occupants
       }
     } = this.props;
 
@@ -45,8 +47,9 @@ export default class Form extends Component {
           <SanitationAndWaterInputs {...sanitationAndWater}/>
           <NutritionInputs {...nutrition}/>
           <ChildrenInputs {...children}/>
-          <DeathsInputs {...deaths}/>
+          <DeathsInputs deaths={deaths}/>
           <EnvironmentAndHealthInputs {...environmentAndHealth}/>
+          <OccupantsInputs occupants={occupants} />
           <div className="form-group">
             <div className="col-md-6 col-md-offset-4">
               <button type="submit" className="btn btn-primary">Save</button>

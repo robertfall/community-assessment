@@ -26,7 +26,7 @@ export default class BooleanCheckbox extends Component {
     const { bindings } = this.props;
     return (
       <div>
-        <label htmlFor="gender" className="col-md-2 col-md-offset-2 control-label">{this.labelText()}</label>
+        <label htmlFor="gender" className="col-md-4 control-label">{this.labelText()}</label>
         <div className="col-md-6">
           <label className="col-md-4">
             <div className="checkbox">
