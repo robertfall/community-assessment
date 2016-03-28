@@ -53,6 +53,18 @@ const form = {
     'children.children[].ageWeaned',
     'children.children[].immunization',
     'children.diarrhoeaMixture',
+
+    'deaths.deaths[].surname',
+    'deaths.deaths[].name',
+    'deaths.deaths[].gender',
+    'deaths.deaths[].age',
+    'deaths.deaths[].causeOfDeath',
+    'deaths.deaths[].comments',
+
+    'environmentAndHealth.environmentalHazards[]',
+    'environmentAndHealth.healthInformation[]',
+    'environmentAndHealth.lifeImprovements[]',
+    'environmentAndHealth.peopleWhoWouldAppreciateVCT',
   ]
 };
 

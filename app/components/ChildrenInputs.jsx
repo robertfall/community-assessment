@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import TextField from './inputs/TextField';
 import BooleanCheckbox from './inputs/BooleanCheckbox';
-import CheckBoxes from './inputs/CheckBoxes';
 
 export default class ChildrenInputs extends Component {
   static propTypes = {
@@ -32,8 +31,8 @@ export default class ChildrenInputs extends Component {
             </div>
           </div>
 
-          <div className="form-group"><TextField bindings={ name } /></div>
           <div className="form-group"><TextField bindings={ surname } /></div>
+          <div className="form-group"><TextField bindings={ name } /></div>
           <div className="form-group"><TextField bindings={ dateOfBirth } /></div>
           <div className="form-group"><TextField bindings={ age } /></div>
           <div className="form-group"><TextField bindings={ gender } /></div>
