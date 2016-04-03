@@ -1,0 +1,25 @@
+import { reduxForm as connect } from 'redux-form';
+import { FormFields } from '../form-model';
+
+import Form from '../components/Form';
+
+const form = {
+  form: 'communityAssessment',
+  fields: FormFields
+};
+
+function mapStateToProps() {
+  const initialValues = {
+    children: { children: [{}] },
+    deaths: [{}],
+    environmentAndHealth: {
+      environmentalHazards: [''],
+      healthInformation: [''],
+      lifeImprovements: [''],
+    },
+    occupants: [{}],
+  };
+  return { initialValues };
+}
+
+export default connect(form, mapStateToProps)(Form);

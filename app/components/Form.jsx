@@ -1,62 +1,52 @@
 import React, { Component, PropTypes } from 'react';
-import AddressInputs from './AddressInputs';
-import CareWorkerInputs from './CareWorkerInputs';
-import HeadOfHouseholdInputs from './HeadOfHouseholdInputs';
-import HouseInputs from './HouseInputs';
-import SanitationAndWaterInputs from './SanitationAndWaterInputs';
-import NutritionInputs from './NutritionInputs';
-import ChildrenInputs from './ChildrenInputs';
-import DeathsInputs from './DeathsInputs';
-import EnvironmentAndHealthInputs from './EnvironmentAndHealthInputs';
-import OccupantsInputs from './OccupantsInputs';
+import { FormSections } from '../form-model';
+import FormNavigationButtons from './FormNavigationButtons';
+import { Link } from 'react-router';
 
 export default class Form extends Component {
   static propTypes = {
     fields: PropTypes.object.isRequired,
-    handleSubmit: PropTypes.func
+    handleSubmit: PropTypes.func,
+    step: PropTypes.string
   }
 
-  render() {
-    const {
-      fields: {
-        address,
-        careWorker,
-        headOfHousehold,
-        house,
-        sanitationAndWater,
-        nutrition,
-        children,
-        deaths,
-        environmentAndHealth,
-        occupants
-      }
-    } = this.props;
+  currentStep() {
+    return Number.parseInt(this.props.step, 10);
+  }
 
+  renderProgress() {
     return (
-      <div className="row">
-        <h1>New Form</h1>
+      <div className="text-center">
+        <ul className="nav nav-wizard">
+          {
+            FormSections.map((section, index) => {
+              return (
+                <li className={this.currentStep() === index ? 'active' : ''}>
+                  <Link to={{ pathname: '/households/new', query: { step: index } }}>
+                    {section.name}
+                  </Link>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </div>
+    );
+  }
+  render() {
+    const section = FormSections[this.currentStep()];
+    const FormSection = section.component;
+    const fields = this.props.fields[section.key];
+    return (
+      <div>
+        { this.renderProgress() }
         <form
           className="form-horizontal"
           id="userInputForm"
           onSubmit={this.props.handleSubmit}
         >
-          <AddressInputs {...address}/>
-          <CareWorkerInputs {...careWorker}/>
-          <HeadOfHouseholdInputs {...headOfHousehold}/>
-          <HouseInputs {...house}/>
-          <SanitationAndWaterInputs {...sanitationAndWater}/>
-          <NutritionInputs {...nutrition}/>
-          <ChildrenInputs {...children}/>
-          <DeathsInputs deaths={deaths}/>
-          <EnvironmentAndHealthInputs {...environmentAndHealth}/>
-          <OccupantsInputs occupants={occupants} />
-          <div className="form-group">
-            <div className="col-md-6 col-md-offset-4">
-              <button type="submit" className="btn btn-primary">Save</button>
-              &nbsp;
-              <button type="button" className="btn btn-danger">Cancel</button>
-            </div>
-          </div>
+          <FormSection {...fields} />
+          <FormNavigationButtons step={this.currentStep()} />
         </form>
       </div>
     );
