@@ -1,23 +1,22 @@
-import { reduxForm as connect } from 'redux-form';
-import FormFields, { DefaultValues } from '../form-model';
+import { reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { FormSections, DefaultValues } from '../form-model';
 
 import Form from '../components/Form';
 
 function stepFromQuery(query) {
-  return query.step ? query.step : 0;
+  return query.step ? Number.parseInt(query.step, 10) : 0;
 }
-
-const form = {
-  form: 'communityAssessment',
-  fields: FormFields,
-};
 
 function mapStateToProps(state, ownProps) {
   const initialValues = DefaultValues;
   return {
     initialValues,
-    step: stepFromQuery(ownProps.location.query)
+    currentStep: stepFromQuery(ownProps.location.query),
+    numberOfSteps: FormSections.length,
   };
 }
 
-export default connect(form, mapStateToProps)(Form);
+const FormedForm = reduxForm({ form: 'communityAssessment' })(Form);
+
+export default connect(mapStateToProps)(FormedForm);

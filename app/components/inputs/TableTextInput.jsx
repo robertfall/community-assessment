@@ -1,26 +1,26 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
+import { Field } from 'redux-form';
 
-export default class TableTextInput extends Component {
-  static propTypes = {
-    bindings: PropTypes.object.isRequired
-  };
+const realName = (name) => {
+  const pathParts = name.split('.');
+  return pathParts[pathParts.length - 1];
+};
+const TableTextInput = (props) => {
+  const { name } = props;
+  return (
+    <Field
+      component="input"
+      type="text"
+      className="form-control"
+      id={realName(name)}
+      name={realName(name)}
+      {...props}
+    />
+  );
+};
 
-  realName() {
-    const pathParts = this.props.bindings.name.split('.');
-    return pathParts[pathParts.length - 1];
-  }
+TableTextInput.propTypes = {
+  name: PropTypes.string.isRequired
+};
 
-  render() {
-    const { bindings } = this.props;
-    return (
-      <input
-        type="text"
-        className="form-control"
-        id={this.realName()}
-        name={this.realName()}
-        {...bindings}
-        {...this.props}
-      />
-    );
-  }
-}
+export default TableTextInput;

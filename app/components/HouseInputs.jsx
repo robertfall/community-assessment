@@ -1,92 +1,79 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import TextField from './inputs/TextField';
 import RadioButtons from './inputs/RadioButtons';
 
-export default class HouseInputs extends Component {
-  static propTypes = {
-    wallsMadeOf: PropTypes.object.isRequired,
-    wallsCondition: PropTypes.object.isRequired,
-    wallsConditionComments: PropTypes.object.isRequired,
-    roofMadeOf: PropTypes.object.isRequired,
-    roofCondition: PropTypes.object.isRequired,
-    roofConditionComments: PropTypes.object.isRequired,
-    comments: PropTypes.object.isRequired,
-  };
+export default () => (
+  <div className="col-md-12" id="houseSection">
+    <div className="form-group">
+      <h3 className="col-md-6 col-md-offset-4">House</h3>
+    </div>
 
-  render() {
-    const {
-      wallsMadeOf,
-      wallsCondition,
-      wallsConditionComments,
-      roofMadeOf,
-      roofCondition,
-      roofConditionComments,
-      comments,
-    } = this.props;
+    <div className="form-group">
+      <RadioButtons
+        name="house.wallsMadeOf"
+        includeOther
+        options={[
+          'Corrugated Iron',
+          'Brick',
+          'Traditional Materials',
+          'Wood'
+        ]}
+      />
+    </div>
 
-    return (
-      <div className="col-md-12" id="houseSection">
-        <div className="form-group">
-          <h3 className="col-md-6 col-md-offset-4">House</h3>
-        </div>
+    <div className="form-group">
+      <RadioButtons
+        name="house.wallsCondition"
+        options={[
+          'Good',
+          'Needs Repair',
+          'Poor',
+        ]}
+      />
+    </div>
+    <div className="form-group">
+      <TextField
+        placeholder="Walls Comments"
+        label=" "
+        name="house.wallsConditionComments"
+      />
+    </div>
 
-        <div className="form-group">
-          <RadioButtons
-            bindings={ wallsMadeOf }
-            includeOther
-            options={[
-              'Corrugated Iron',
-              'Brick',
-              'Traditional Materials',
-              'Wood'
-            ]}
-          />
-        </div>
+    <div className="form-group">
+      <RadioButtons
+        name="house.roofMadeOf"
+        includeOther
+        options={[
+          'Corrugated Iron',
+          'Brick',
+          'Traditional Materials',
+          'Wood'
+        ]}
+      />
+    </div>
 
-        <div className="form-group">
-          <RadioButtons
-            bindings={ wallsCondition }
-            options={[
-              'Good',
-              'Needs Repair',
-              'Poor',
-            ]}
-          />
-        </div>
-        <div className="form-group">
-          <TextField placeholder="Walls Comments" label=" " bindings={wallsConditionComments} />
-        </div>
-
-        <div className="form-group">
-          <RadioButtons
-            bindings={ roofMadeOf }
-            includeOther
-            options={[
-              'Corrugated Iron',
-              'Brick',
-              'Traditional Materials',
-              'Wood'
-            ]}
-          />
-        </div>
-
-        <div className="form-group">
-          <RadioButtons
-            bindings={ roofCondition }
-            options={[
-              'Good',
-              'Needs Repair',
-              'Poor',
-            ]}
-          />
-        </div>
-        <div className="form-group">
-          <TextField placeholder="Roof Comments" label=" " bindings={roofConditionComments} />
-        </div>
-        <div className="form-group">
-          <TextField bindings={comments} label="General Comments"/>
-        </div>
-      </div>
-    );
-  }
-}
+    <div className="form-group">
+      <RadioButtons
+        name="house.roofCondition"
+        options={[
+          'Good',
+          'Needs Repair',
+          'Poor',
+        ]}
+      />
+    </div>
+    <div className="form-group">
+      <TextField
+        placeholder="Roof Comments"
+        label=" "
+        name="house.roofConditionComments"
+      />
+    </div>
+    <div className="form-group">
+      <TextField
+        name="house.comments"
+        label="General Comments"
+      />
+    </div>
+  </div>
+);

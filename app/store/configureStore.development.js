@@ -1,23 +1,19 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import { persistState } from 'redux-devtools';
 import createLogger from 'redux-logger';
 import { hashHistory } from 'react-router';
 import { routerMiddleware } from 'react-router-redux';
 import rootReducer from '../reducers';
-import DevTools from '../containers/DevTools';
 
-const logger = createLogger({level: 'info'});
+const logger = createLogger({
+  level: 'info',
+  collapsed: true,
+});
 
 const router = routerMiddleware(hashHistory);
 
 const enhancer = compose(
-  applyMiddleware(router),
-  DevTools.instrument(),
-  persistState(
-    window.location.href.match(
-      /[?&]debug_session=([^&]+)\b/
-    )
-  )
+  applyMiddleware(router, logger),
+  window.devToolsExtension ? window.devToolsExtension() : noop => noop
 );
 
 export default function configureStore(initialState) {
@@ -25,7 +21,7 @@ export default function configureStore(initialState) {
 
   if (module.hot) {
     module.hot.accept('../reducers', () =>
-      store.replaceReducer(require('../reducers'))
+      store.replaceReducer(require('../reducers')) // eslint-disable-line global-require
     );
   }
 

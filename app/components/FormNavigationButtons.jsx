@@ -1,30 +1,37 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-export default class FormNavigationButtons extends Component {
-  static propTypes = {
-    step: PropTypes.number.isRequired,
-  };
 
-  render() {
-    const { step } = this.props;
+const FormNavigationButtons = (props) => {
+  const { currentStep, numberOfSteps } = props;
 
-    return (
-      <div className="form-group">
-        <Link
-          to={{ pathname: '/households/new', query: { step: step - 1 } } }
+  return (
+    <div className="form-group">
+      {
+        currentStep > 0 && <Link
+          to={{ pathname: '/households/new', query: { step: currentStep - 1 } }}
           className="btn btn-default"
         >
           Back
         </Link>
-        &nbsp;
-        <Link
-          to={{ pathname: '/households/new', query: { step: step + 1 } } }
-          className="btn btn-default"
-        >
-          Next
-        </Link>
-      </div>
-    );
-  }
-}
+      }
+      &nbsp;
+        {
+          currentStep < numberOfSteps - 1 &&
+            <Link
+              to={{ pathname: '/households/new', query: { step: currentStep + 1 } }}
+              className="btn btn-default"
+            >
+              Next
+            </Link>
+        }
+    </div>
+  );
+};
+
+FormNavigationButtons.propTypes = {
+  currentStep: PropTypes.number.isRequired,
+  numberOfSteps: PropTypes.number.isRequired,
+};
+
+export default FormNavigationButtons;

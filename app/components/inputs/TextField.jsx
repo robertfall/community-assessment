@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import startCase from 'lodash/startCase';
+import { Field } from 'redux-form';
 
 export default class TextField extends Component {
   static propTypes = {
-    bindings: PropTypes.object.isRequired,
     name: PropTypes.string,
     label: PropTypes.string,
   };
@@ -17,12 +17,11 @@ export default class TextField extends Component {
   realName() {
     if (this.props.name) return this.props.name;
 
-    const pathParts = this.props.bindings.name.split('.');
+    const pathParts = this.props.name.split('.');
     return pathParts[pathParts.length - 1];
   }
 
   render() {
-    const { bindings } = this.props;
     return (
       <div>
         <label
@@ -32,12 +31,12 @@ export default class TextField extends Component {
           {this.labelText()}
         </label>
         <div className="col-md-6">
-          <input
-            type="text"
-            className="form-control"
+          <Field
             id={this.realName()}
             name={this.realName()}
-            {...bindings}
+            type="text"
+            component="input"
+            className="form-control"
             {...this.props}
           />
         </div>

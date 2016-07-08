@@ -26,14 +26,6 @@ export default class App extends Component {
         </nav>
         <div className="container-fluid">
           {this.props.children}
-          {
-            (() => {
-              if (process.env.NODE_ENV !== 'production') {
-                const DevTools = require('./DevTools');
-                return <DevTools />;
-              }
-            })()
-          }
         </div>
       </div>
     );

@@ -1,12 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import startCase from 'lodash/startCase';
 import chunk from 'lodash/chunk';
-import without from 'lodash/without';
-import includes from 'lodash/includes';
+import { Field } from 'redux-form';
 
 export default class CheckBoxes extends Component {
   static propTypes = {
-    bindings: PropTypes.object.isRequired,
     options: PropTypes.array.isRequired,
     name: PropTypes.string,
     label: PropTypes.string,
@@ -22,56 +20,36 @@ export default class CheckBoxes extends Component {
   realName() {
     if (this.props.name) return this.props.name;
 
-    const pathParts = this.props.bindings.name.split('.');
+    const pathParts = this.props.name.split('.');
     return pathParts[pathParts.length - 1];
   }
 
 
   children() {
-    const { options, bindings, includeOther } = this.props;
+    const { options, includeOther } = this.props;
     const optionsWithOther = includeOther
                            ? options.concat('Other')
                            : options;
-    const parse = (option) => {
-      return (event) => {
-        const { bindings: { value, onChange } } = this.props;
-        const { target } = event;
 
-        const safeValue = value || [];
-
-        if (includes(safeValue, option)) {
-          if (!target.checked) { onChange(without(safeValue, option)); }
-        } else {
-          if (target.checked) { onChange(safeValue.concat(option)); }
-        }
-      };
-    };
-
-    return chunk(optionsWithOther, 3).map((row, index) => {
-      return (
-        <div key={ index }>
+    return chunk(optionsWithOther, 3).map((row, index) => (
+      <div key={index}>
         {
-          row.map((opt) => {
-            return (
-              <div key={opt} className="col-sm-4">
+          row.map((opt) => (
+            <div key={opt} className="col-sm-4">
               <label className="checkbox-inline control-label">
-                  <input
-                    type="checkbox"
-                    name={bindings.name}
-                    onChange={parse(opt)}
-                    checked={includes(bindings.value, opt)}
-                  />
-                  {startCase(opt)}
-                </label>
-              </div>
-            );
-          })
+                <Field
+                  component="input"
+                  type="checkbox"
+                  name={this.props.name}
+                />
+                {startCase(opt)}
+              </label>
+            </div>
+          ))
         }
-        </div>
-      );
-    });
+      </div>
+    ));
   }
-
 
   render() {
     return (
@@ -83,7 +61,7 @@ export default class CheckBoxes extends Component {
           {this.labelText()}
         </label>
         <div className="col-md-6">
-          { this.children() }
+          {this.children()}
         </div>
       </div>
     );

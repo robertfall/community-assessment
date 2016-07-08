@@ -1,9 +1,6 @@
-/* eslint strict: 0 */
-'use strict';
+import path from 'path';
 
-const path = require('path');
-
-module.exports = {
+export default {
   module: {
     loaders: [{
       test: /\.jsx?$/,
@@ -20,9 +17,10 @@ module.exports = {
     libraryTarget: 'commonjs2'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['', '.js', '.jsx', '.json'],
     packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
   },
+  noInfo: true,
   plugins: [
 
   ],

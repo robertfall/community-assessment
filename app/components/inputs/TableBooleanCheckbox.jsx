@@ -1,17 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
+import { Field } from 'redux-form';
 
-export default class TableTextInput extends Component {
-  static propTypes = {
-    bindings: PropTypes.object.isRequired
-  };
+const TableBooleanCheckbox = ({ name }) =>
+  <Field component="input" type="checkbox" name={name} />;
 
-  realName() {
-    const pathParts = this.props.bindings.name.split('.');
-    return pathParts[pathParts.length - 1];
-  }
+TableBooleanCheckbox.propTypes = {
+  name: PropTypes.string.isRequired
+};
 
-  render() {
-    const { bindings } = this.props;
-    return <input type="checkbox" name={this.realName()} {...bindings} />;
-  }
-}
+export default TableBooleanCheckbox;
