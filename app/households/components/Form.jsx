@@ -1,5 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import { FormSections } from '../form-model';
+import { reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import React, { PropTypes } from 'react';
+import { FormSections, DefaultValues } from '../model';
 import FormNavigationButtons from './FormNavigationButtons';
 import { Link } from 'react-router';
 
@@ -41,7 +43,6 @@ const Form = (props) => {
           currentStep={currentStep}
           numberOfSteps={numberOfSteps}
         />
-        {JSON.stringify(props)}
       </form>
     </div>
   );
@@ -53,4 +54,19 @@ Form.propTypes = {
   numberOfSteps: PropTypes.number,
 };
 
-export default Form;
+
+function stepFromQuery(query) {
+  return query.step ? Number.parseInt(query.step, 10) : 0;
+}
+
+function mapStateToProps(state, ownProps) {
+  const initialValues = DefaultValues;
+  return {
+    initialValues,
+    currentStep: stepFromQuery(ownProps.location.query),
+    numberOfSteps: FormSections.length,
+  };
+}
+
+const ReduxForm = reduxForm({ form: 'communityAssessment' })(Form);
+export default connect(mapStateToProps)(ReduxForm);
