@@ -1,9 +1,12 @@
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import React, { PropTypes } from 'react';
-import { FormSections, DefaultValues } from '../model';
+import { FormSections } from '../model';
 import FormNavigationButtons from './FormNavigationButtons';
 import { Link } from 'react-router';
+import { push } from 'react-router-redux';
+
+import { updateHousehold, selectHousehold } from '../state';
 
 function renderProgress(currentStep) {
   return (
@@ -12,10 +15,10 @@ function renderProgress(currentStep) {
         {
           FormSections.map((section, index) => (
             <li
-              key={index}
-              className={currentStep === index ? 'active' : ''}
+              key={index + 1}
+              className={currentStep === index + 1 ? 'active' : ''}
             >
-              <Link to={{ pathname: '/households/new', query: { step: index } }}>
+              <Link to={{ pathname: '/households/new', query: { step: index + 1 } }}>
                 {section.name}
               </Link>
             </li>
@@ -28,7 +31,7 @@ function renderProgress(currentStep) {
 
 const Form = (props) => {
   const { currentStep, numberOfSteps, handleSubmit } = props;
-  const section = FormSections[currentStep];
+  const section = FormSections[currentStep - 1];
   const FormSection = section.component;
   return (
     <div>
@@ -49,24 +52,36 @@ const Form = (props) => {
 };
 
 Form.propTypes = {
-  handleSubmit: PropTypes.func,
-  currentStep: PropTypes.number,
-  numberOfSteps: PropTypes.number,
+  handleSubmit: PropTypes.func.isRequired,
+  currentStep: PropTypes.number.isRequired,
+  numberOfSteps: PropTypes.number.isRequired,
 };
 
 
 function stepFromQuery(query) {
-  return query.step ? Number.parseInt(query.step, 10) : 0;
+  return query.step ? Number.parseInt(query.step, 10) : 1;
 }
 
 function mapStateToProps(state, ownProps) {
-  const initialValues = DefaultValues;
   return {
-    initialValues,
+    initialValues: selectHousehold(state, ownProps.params.id),
     currentStep: stepFromQuery(ownProps.location.query),
     numberOfSteps: FormSections.length,
   };
 }
 
-const ReduxForm = reduxForm({ form: 'communityAssessment' })(Form);
-export default connect(mapStateToProps)(ReduxForm);
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmit(data) {
+      dispatch(updateHousehold(data));
+      dispatch(push('/'));
+    }
+  };
+}
+
+const form = {
+  form: 'communityAssessment',
+};
+
+const ReduxForm = reduxForm(form)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(ReduxForm);

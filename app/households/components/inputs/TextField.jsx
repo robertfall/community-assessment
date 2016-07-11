@@ -15,8 +15,6 @@ export default class TextField extends Component {
   }
 
   realName() {
-    if (this.props.name) return this.props.name;
-
     const pathParts = this.props.name.split('.');
     return pathParts[pathParts.length - 1];
   }

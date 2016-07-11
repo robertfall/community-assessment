@@ -1,4 +1,4 @@
-import { actions, rootReducer as reducer } from './state';
+import reducer, * as actions from './state';
 import * as components from './components';
 
 export default {

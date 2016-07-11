@@ -1,17 +1,36 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import households from 'households';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
-export default class Menu extends Component {
-  render() {
-    return (
-      <div className="text-center">
-        <h3>Community Assessment Data Capturing</h3>
-        <br />
-        <Link className="btn btn-primary btn-lg" to="households/new">New Household Form</Link>
-        <br />
-        <br />
-        <Link className="btn btn-primary btn-lg" to="households">Existing Households</Link>
-      </div>
-    );
-  }
-}
+const { createHousehold } = households.actions;
+
+const Menu = ({ onCreateHousehold }) => (
+  <div className="text-center">
+    <h3>Community Assessment Data Capturing</h3>
+    <br />
+    <button
+      className="btn btn-primary btn-lg"
+      onClick={onCreateHousehold}
+    >New Household Form</button>
+    <br />
+    <br />
+    <Link className="btn btn-primary btn-lg" to="households">Existing Households</Link>
+  </div>
+);
+
+Menu.propTypes = {
+  onCreateHousehold: PropTypes.func.isRequired,
+};
+
+export default connect(
+  () => ({}),
+  (dispatch) => ({
+    onCreateHousehold: () => {
+      const householdAction = createHousehold();
+      dispatch(householdAction);
+      dispatch(push(`/households/${householdAction.payload.id}`));
+    },
+  })
+)(Menu);

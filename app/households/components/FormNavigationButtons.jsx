@@ -8,7 +8,7 @@ const FormNavigationButtons = (props) => {
   return (
     <div className="form-group">
       {
-        currentStep > 0 && <Link
+        currentStep > 1 && <Link
           to={{ pathname: '/households/new', query: { step: currentStep - 1 } }}
           className="btn btn-default"
         >
@@ -16,15 +16,18 @@ const FormNavigationButtons = (props) => {
         </Link>
       }
       &nbsp;
-        {
-          currentStep < numberOfSteps - 1 &&
-            <Link
-              to={{ pathname: '/households/new', query: { step: currentStep + 1 } }}
-              className="btn btn-default"
-            >
-              Next
-            </Link>
-        }
+      {
+        currentStep < numberOfSteps &&
+          <Link
+            to={{ pathname: '/households/new', query: { step: currentStep + 1 } }}
+            className="btn btn-default"
+          >
+            Next
+          </Link>
+      }
+      &nbsp;
+      <input type="submit" value="Save Household" className="btn btn-primary" />
+        Step {currentStep} of {numberOfSteps}
     </div>
   );
 };

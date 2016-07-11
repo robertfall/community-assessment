@@ -17,7 +17,6 @@ const config = {
 
   module: {
     ...baseConfig.module,
-
     loaders: [
       ...baseConfig.module.loaders,
 
@@ -36,7 +35,7 @@ const config = {
           'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
         )
       }
-    ]
+    ],
   },
 
   plugins: [

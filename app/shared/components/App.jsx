@@ -1,33 +1,46 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+import households from 'households';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 
-export default class App extends Component {
-  static propTypes = {
-    children: PropTypes.element.isRequired
-  };
+const { createHousehold } = households.actions;
 
-  render() {
-    return (
-      <div>
-        <nav className="navbar navbar-inverse navbar-fixed-top">
-          <div className="container-fluid">
-            <div className="navbar-header">
-              <span className="navbar-brand">
-                <Link to="/">
-                  Community Assessment
-                </Link>
-              </span>
-            </div>
-            <ul className="nav navbar-nav">
-              <li><Link to="households/new">New Household</Link></li>
-              <li><Link to="households">Existing Household</Link></li>
-            </ul>
-          </div>
-        </nav>
-        <div className="container-fluid">
-          {this.props.children}
+const App = ({ children, onCreateHousehold }) => (
+  <div>
+    <nav className="navbar navbar-inverse navbar-fixed-top">
+      <div className="container-fluid">
+        <div className="navbar-header">
+          <span className="navbar-brand">
+            <Link to="/">
+              Community Assessment
+            </Link>
+          </span>
         </div>
+        <ul className="nav navbar-nav">
+          <li><a onClick={onCreateHousehold}>New Household</a></li>
+          <li><Link to="households">Existing Households</Link></li>
+        </ul>
       </div>
-    );
-  }
-}
+    </nav>
+    <div className="container-fluid">
+      {children}
+    </div>
+  </div>
+);
+
+App.propTypes = {
+  children: PropTypes.element.isRequired,
+  onCreateHousehold: PropTypes.func.isRequired,
+};
+
+export default connect(
+  () => ({}),
+  (dispatch) => ({
+    onCreateHousehold: () => {
+      const householdAction = createHousehold();
+      dispatch(householdAction);
+      dispatch(push(`/households/${householdAction.payload.id}`));
+    },
+  })
+)(App);

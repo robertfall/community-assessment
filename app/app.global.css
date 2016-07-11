@@ -151,3 +151,15 @@ th.rotate > div > span {
     border: none !important;
   }
 }
+
+ul.recent-households {
+  list-style: none;
+}
+
+ul.recent-households li {
+  list-style: none;
+}
+
+a {
+  cursor: pointer;
+}

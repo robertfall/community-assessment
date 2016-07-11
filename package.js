@@ -42,7 +42,6 @@ if (icon) {
 }
 
 const version = argv.version || argv.v;
-
 if (version) {
   DEFAULT_OPTS.version = version;
   startPack();

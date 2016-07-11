@@ -1,15 +1,13 @@
 import path from 'path';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 export default {
   module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      loaders: ['babel-loader'],
-      exclude: /node_modules/
-    }, {
-      test: /\.json$/,
-      loader: 'json-loader'
-    }]
+    noParse: /node_modules\/json-schema\/lib\/validate\.js/,
+    loaders: [
+      { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ },
+      { test: /\.json$/, loader: 'json-loader' },
+    ]
   },
   output: {
     path: path.join(__dirname, 'dist'),
@@ -17,12 +15,15 @@ export default {
     libraryTarget: 'commonjs2'
   },
   resolve: {
-    extensions: ['', '.js', '.jsx', '.json'],
+    root: path.join(__dirname, 'app'),
+    extensions: ['', '.js', '.jsx', '.json', '.css'],
     packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
   },
-  noInfo: true,
+  // noInfo: true,
   plugins: [
-
+    new CopyWebpackPlugin([
+      { from: 'assets' },
+    ]),
   ],
   externals: [
     // put your node 3rd party libraries which can't be built with webpack here
