@@ -10,7 +10,7 @@ import { updateHousehold, selectHousehold } from '../state';
 
 function renderProgress(currentStep) {
   return (
-    <div className="text-center">
+    <div className="form-progress">
       <ul className="nav nav-wizard">
         {
           FormSections.map((section, index) => (
@@ -34,7 +34,7 @@ const Form = (props) => {
   const section = FormSections[currentStep - 1];
   const FormSection = section.component;
   return (
-    <div>
+    <div className='flex-container'>
       {renderProgress(currentStep)}
       <form
         className="form-horizontal"
@@ -73,9 +73,11 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   return {
     onSubmit(data) {
+      console.log("Form Submitted");
+      console.log(dispatch);
       dispatch(updateHousehold(data));
       dispatch(push('/'));
-    }
+    },
   };
 }
 

@@ -7,13 +7,12 @@
     "node": true
   },
   "rules": {
-    "react/jsx-no-bind": 0,
-
-    "comma-dangle": 0,
-    "no-use-before-define": 0,
-    "consistent-return": 0
+    "react/jsx-no-bind": 1,
+    "comma-dangle": 1,
+    "no-use-before-define": 1,
+    "consistent-return": 1
   },
   "plugins": [
-    "react"
+    "react",
   ]
 }

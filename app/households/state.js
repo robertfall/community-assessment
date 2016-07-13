@@ -2,25 +2,27 @@ import UUID from 'uuid-js';
 import _ from 'lodash';
 import { DefaultValues } from './model';
 
-const CREATE = 'households/create';
-const UPDATE = 'households/update';
+export const CREATE = 'households/create';
+export const UPDATE = 'households/update';
 
 function emptyHousehold() {
   return {
-    id: UUID.create().hex,
-    ...DefaultValues
+    _id: UUID.create().hex,
+    ...DefaultValues,
   };
 }
 
-export const createHousehold = () => ({
+const createHousehold = () => ({
   type: CREATE,
   payload: emptyHousehold(),
 });
 
-export const updateHousehold = (household) => ({
+const updateHousehold = (household) => ({
   type: UPDATE,
   payload: household,
 });
+
+export const actions = { createHousehold, updateHousehold };
 
 export default function reducer(state = [], action) {
   switch (action.type) {

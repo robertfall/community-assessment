@@ -7,15 +7,15 @@ const OccupantRow = ({ occupant, index }) => (
     <td>{index + 1}</td>
     <td><TableTextInput name={`${occupant}.surname`} /></td>
     <td><TableTextInput name={`${occupant}.name`} /></td>
-    <td><TableTextInput name={`${occupant}.gender`} /></td>
+    <td><TableTextInput className="squished" name={`${occupant}.gender`} /></td>
     <td><TableTextInput name={`${occupant}.relationHeadOfHoushold`} /></td>
-    <td><TableTextInput name={`${occupant}.age`} /></td>
+    <td><TableTextInput className="squished" name={`${occupant}.age`} /></td>
     <td><TableBooleanCheckbox name={`${occupant}.atHomeDuringDay`} /></td>
-    <td><TableTextInput name={`${occupant}.mobility`} /></td>
-    <td><TableTextInput name={`${occupant}.selfCare`} /></td>
-    <td><TableTextInput name={`${occupant}.usualActivity`} /></td>
-    <td><TableTextInput name={`${occupant}.painOrDiscomfort`} /></td>
-    <td><TableTextInput name={`${occupant}.anxietyOrDepression`} /></td>
+    <td><TableTextInput className="squished" name={`${occupant}.mobility`} /></td>
+    <td><TableTextInput className="squished" name={`${occupant}.selfCare`} /></td>
+    <td><TableTextInput className="squished" name={`${occupant}.usualActivity`} /></td>
+    <td><TableTextInput className="squished" name={`${occupant}.painOrDiscomfort`} /></td>
+    <td><TableTextInput className="squished" name={`${occupant}.anxietyOrDepression`} /></td>
     <td><TableBooleanCheckbox name={`${occupant}.chronicRespiratoryProblems`} /></td>
     <td><TableBooleanCheckbox name={`${occupant}.hypertension`} /></td>
     <td><TableBooleanCheckbox name={`${occupant}.epilepsy`} /></td>

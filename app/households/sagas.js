@@ -1,9 +1,10 @@
-import { takeLatest, put, call } from 'redux-saga';
+import { takeLatest } from 'redux-saga';
+import { call, put } from 'redux-saga/effects';
 import { CREATE, UPDATE } from './state';
 
 function* persistHousehold(action) {
-  console.log('Writing to pouch');
-  console.log(action);
+  const pouch = window.db;
+  const result = yield call([pouch, pouch.put], action.payload);
 }
 
 function* watchHouseholds() {

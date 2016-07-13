@@ -7,18 +7,24 @@ export default () => (
     <div className="form-group">
       <h3 className="col-md-6 col-md-offset-4">Environment And Health</h3>
     </div>
-    <MultiTextFieldInputs
-      name="environmentAndHealth.healthInformation"
-      header="Is there any health information that you need?"
-    />
-    <MultiTextFieldInputs
-      name="environmentAndHealth.environmentalHazards"
-      header="Are there any hazards in the environment that can cause injuries?"
-    />
-    <MultiTextFieldInputs
-      name="environmentAndHealth.lifeImprovements"
-      header="What would improve your life the most?"
-    />
+    <div className="form-group">
+      <TextField
+        name="environmentAndHealth.healthInformation"
+        label="Is there any health information that you need?"
+      />
+    </div>
+    <div className="form-group">
+      <TextField
+        name="environmentAndHealth.environmentalHazards"
+        label="Are there any hazards in the environment that can cause injuries?"
+      />
+    </div>
+    <div className="form-group">
+      <TextField
+        name="environmentAndHealth.lifeImprovements"
+        label="What would improve your life the most?"
+      />
+    </div>
     <div className="form-group">
       <TextField
         name="environmentAndHealth.peopleWhoWouldAppreciateVCT"

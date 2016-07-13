@@ -34,6 +34,11 @@ th.rotate > div > span {
   padding: 5px 10px;
 }
 
+input.squished.form-control {
+  padding: 3px;
+  text-align: center;
+}
+
 
 /********** Wizard Nav **************/
 .nav-wizard > li {
@@ -150,6 +155,15 @@ th.rotate > div > span {
   .nav-wizard.nav-justified > li > a:after {
     border: none !important;
   }
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-progress {
+  align-self: center;
 }
 
 ul.recent-households {

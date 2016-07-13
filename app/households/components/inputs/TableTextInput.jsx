@@ -9,12 +9,12 @@ const TableTextInput = (props) => {
   const { name } = props;
   return (
     <Field
+      {...props}
       component="input"
       type="text"
-      className="form-control"
+      className={`form-control ${props.className}`}
       id={realName(name)}
       name={realName(name)}
-      {...props}
     />
   );
 };

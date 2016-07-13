@@ -1,8 +1,10 @@
-import reducer, * as actions from './state';
+import reducer, { actions } from './state';
 import * as components from './components';
+import sagas from './sagas';
 
 export default {
   actions,
   reducer,
-  components
+  components,
+  sagas,
 };
