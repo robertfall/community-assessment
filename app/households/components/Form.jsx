@@ -6,7 +6,8 @@ import FormNavigationButtons from './FormNavigationButtons';
 import { Link } from 'react-router';
 import { push } from 'react-router-redux';
 
-import { updateHousehold, selectHousehold } from '../state';
+import { actions, selectHousehold } from '../state';
+const { updatedHousehold } = actions;
 
 function renderProgress(currentStep) {
   return (
@@ -34,7 +35,7 @@ const Form = (props) => {
   const section = FormSections[currentStep - 1];
   const FormSection = section.component;
   return (
-    <div className='flex-container'>
+    <div className="flex-container">
       {renderProgress(currentStep)}
       <form
         className="form-horizontal"
@@ -73,9 +74,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   return {
     onSubmit(data) {
-      console.log("Form Submitted");
-      console.log(dispatch);
-      dispatch(updateHousehold(data));
+      dispatch(updatedHousehold(data));
       dispatch(push('/'));
     },
   };

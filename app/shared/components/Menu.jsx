@@ -4,7 +4,7 @@ import households from 'households';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
-const { createHousehold } = households.actions;
+const { createdHousehold } = households.actions;
 
 const Menu = ({ onCreateHousehold }) => (
   <div className="text-center">
@@ -28,7 +28,7 @@ export default connect(
   () => ({}),
   (dispatch) => ({
     onCreateHousehold: () => {
-      const householdAction = createHousehold();
+      const householdAction = createdHousehold();
       dispatch(householdAction);
       dispatch(push(`/households/${householdAction.payload.id}`));
     },

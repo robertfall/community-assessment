@@ -1,5 +1,6 @@
 import React from 'react';
 import TextField from './inputs/TextField';
+import TextArea from './inputs/TextArea';
 
 export default () => (
   <div className="col-md-12" id="addressSection">
@@ -16,7 +17,7 @@ export default () => (
     </div>
 
     <div className="form-group">
-      <TextField name="address.directions" />
+      <TextArea name="address.directions" />
     </div>
   </div>
 );

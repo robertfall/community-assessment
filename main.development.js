@@ -7,11 +7,8 @@ let menu;
 let template;
 let mainWindow = null;
 
-
-if (process.env.NODE_ENV === 'development') {
-  require('electron-debug')(); // eslint-disable-line global-require
-}
-
+import electronDebug from 'electron-debug';
+electronDebug();
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();

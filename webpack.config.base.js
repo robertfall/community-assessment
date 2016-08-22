@@ -25,7 +25,4 @@ export default {
       { from: 'assets' },
     ]),
   ],
-  externals: [
-    'leveldown',
-  ],
 };

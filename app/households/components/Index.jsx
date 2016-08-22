@@ -18,18 +18,19 @@ const Index = ({ households }) => (
       </thead>
       <tbody>
         {
-          households.map((household) => (
-            <tr key={household.id}>
-              <td>
+          households.map((household, index) => (
+            <tr key={index}>
+              <td key="actions">
                 <Link
                   className="btn btn-primary"
-                  to={`/households/${household.id}`} >
+                  to={`/households/${household.id}`}
+                >
                   Edit
                 </Link>
               </td>
-              <td>{household.address && household.address.address}</td>
-              <td>{household.careWorker && household.careWorker.nameAndSurname}</td>
-              <td></td>
+              <td key="address">{household.address && household.address.address}</td>
+              <td key="care-worker">{household.careWorker && household.careWorker.nameAndSurname}</td>
+              <td key="new"></td>
             </tr>
           ))
         }

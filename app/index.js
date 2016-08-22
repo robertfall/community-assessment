@@ -5,7 +5,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import configureStore from './store/configureStore';
 import Application from 'Application';
 import setupPouch from 'helpers/pouch';
-import { sagas as householdSagas } from 'households';
+import rootSaga from './saga';
 import './app.global.css';
 
 const store = configureStore();
@@ -18,7 +18,7 @@ render(
   document.getElementById('root')
 );
 
-store.sagaMiddleware.run(...householdSagas);
+store.sagaMiddleware.run(rootSaga);
 
 if (module.hot) {
   module.hot.accept('Application', () => {
