@@ -6,8 +6,9 @@ import { push } from 'react-router-redux';
 
 const { createdHousehold } = households.actions;
 
-const App = ({ children, onCreateHousehold }) => (
-  <div>
+const App = ({ loaded, children, onCreateHousehold }) => (
+  loaded
+  ? <div>
     <nav className="navbar navbar-inverse navbar-fixed-top">
       <div className="container-fluid">
         <div className="navbar-header">
@@ -27,15 +28,21 @@ const App = ({ children, onCreateHousehold }) => (
       {children}
     </div>
   </div>
+  : <div>Loading...</div>
 );
 
 App.propTypes = {
   children: PropTypes.element.isRequired,
   onCreateHousehold: PropTypes.func.isRequired,
+  loaded: PropTypes.bool,
 };
 
+const selectDbLoaded = (state) => state.pouch.loaded;
+
 export default connect(
-  () => ({}),
+  (state) => ({
+    loaded: selectDbLoaded(state),
+  }),
   (dispatch) => ({
     onCreateHousehold: () => {
       const householdAction = createdHousehold();

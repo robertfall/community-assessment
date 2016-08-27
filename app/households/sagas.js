@@ -1,12 +1,14 @@
-import { takeLatest } from 'redux-saga';
-import { call, fork, put, select } from 'redux-saga/effects';
+import { call, take, fork, put, select } from 'redux-saga/effects';
 import {
   CREATED,
   UPDATED,
+  OPENED,
   restoredHouseholds,
+  createdHousehold,
   selectHousehold,
   revisionUpdated,
 } from './state';
+import { dbRestored } from 'shared/state';
 
 function* createHousehold(action) {
   const pouch = window.db;
@@ -32,21 +34,36 @@ function* updateHousehold(action) {
   }
 }
 
-function* watchCreates() {
-  yield* takeLatest(CREATED, createHousehold);
-}
-function* watchUpdates() {
-  yield* takeLatest(UPDATED, updateHousehold);
+function* createIfNecessary({ payload }) {
+  const existingHousehold = yield select(selectHousehold, payload);
+  if (!existingHousehold) {
+    yield put(createdHousehold(payload));
+  }
 }
 
 function* restoreFromDisk() {
   const pouch = window.db;
   const { rows } = yield call([pouch, pouch.allDocs], { include_docs: true });
   yield put(restoredHouseholds(rows.map((r) => r.doc)));
+  yield put(dbRestored());
 }
 
 export default function* householdSaga() {
-  yield fork(watchCreates);
-  yield fork(watchUpdates);
-  yield call(restoreFromDisk);
+  yield fork(restoreFromDisk);
+  while (true) {
+    const action = yield take();
+    switch (action.type) {
+      case CREATED:
+        yield fork(createHousehold, action);
+        break;
+      case UPDATED:
+        yield fork(updateHousehold, action);
+        break;
+      case OPENED:
+        yield fork(createIfNecessary, action);
+        break;
+      default:
+        break;
+    }
+  }
 }

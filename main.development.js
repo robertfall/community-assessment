@@ -58,7 +58,7 @@ app.on('ready', async () => {
 
   template = [{
     label: '&View',
-    submenu: (process.env.NODE_ENV === 'development') ? [{
+    submenu: true ? [{
       label: '&Reload',
       accelerator: 'Ctrl+R',
       click() {

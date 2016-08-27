@@ -12,10 +12,10 @@ import OccupantsInputs from './components/OccupantsInputs';
 export const DefaultValues = {
   children: {
     // using children causes issues with react
-    childs: [{}]
+    childs: [],
   },
   deaths: {
-    deaths: [{}]
+    deaths: [],
   },
   environmentAndHealth: {
     environmentalHazards: [''],
@@ -23,8 +23,8 @@ export const DefaultValues = {
     lifeImprovements: [''],
   },
   occupants: {
-    occupants: [{}],
-  }
+    occupants: [],
+  },
 };
 
 export const FormSections = [

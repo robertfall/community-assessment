@@ -5,9 +5,10 @@ import { FormSections } from '../model';
 import FormNavigationButtons from './FormNavigationButtons';
 import { Link } from 'react-router';
 import { push } from 'react-router-redux';
+import lifecycle from 'shared/components/lifecycle';
 
 import { actions, selectHousehold } from '../state';
-const { updatedHousehold } = actions;
+const { updatedHousehold, openedHousehold } = actions;
 
 function renderProgress(currentStep) {
   return (
@@ -71,11 +72,14 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, { params }) {
   return {
     onSubmit(data) {
       dispatch(updatedHousehold(data));
       dispatch(push('/'));
+    },
+    componentWillMount() {
+      dispatch(openedHousehold(params.id));
     },
   };
 }
@@ -84,5 +88,6 @@ const form = {
   form: 'communityAssessment',
 };
 
-const ReduxForm = reduxForm(form)(Form);
+const LifecycleForm = lifecycle(Form);
+const ReduxForm = reduxForm(form)(LifecycleForm);
 export default connect(mapStateToProps, mapDispatchToProps)(ReduxForm);

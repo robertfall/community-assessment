@@ -8,17 +8,17 @@ import setupPouch from 'helpers/pouch';
 import rootSaga from './saga';
 import './app.global.css';
 
-const store = configureStore();
-const history = syncHistoryWithStore(hashHistory, store);
-
+const store = configureStore(hashHistory);
 window.db = setupPouch();
 
+store.sagaMiddleware.run(rootSaga);
+
+const history = syncHistoryWithStore(hashHistory, store);
 render(
   <Application store={store} history={history} />,
   document.getElementById('root')
 );
 
-store.sagaMiddleware.run(rootSaga);
 
 if (module.hot) {
   module.hot.accept('Application', () => {

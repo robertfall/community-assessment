@@ -5,25 +5,39 @@ import { DefaultValues } from './model';
 export const CREATED = 'households/created';
 export const UPDATED = 'households/updated';
 export const RESTORED = 'households/restored';
+export const OPENED = 'households/opened';
 export const REVISION_UPDATED = 'households/revision-updated';
 
-function emptyHousehold() {
-  const id = UUID.v4().toString();
+function emptyHousehold(id = UUID.v4().toString()) {
+  const now = new Date();
   return {
     _id: id,
+    createdAt: now,
+    updatedAt: now,
     id,
     ...DefaultValues,
   };
 }
 
-const createdHousehold = () => ({
+export const createdHousehold = (id) => ({
   type: CREATED,
-  payload: emptyHousehold(),
+  payload: emptyHousehold(id),
 });
 
-const updatedHousehold = (household) => ({
-  type: UPDATED,
-  payload: household,
+const updatedHousehold = (household) => {
+  const now = new Date();
+  return {
+    type: UPDATED,
+    payload: {
+      ...household,
+      updatedAt: now,
+    },
+  };
+};
+
+const openedHousehold = (id) => ({
+  type: OPENED,
+  payload: id,
 });
 
 export const restoredHouseholds = (households) => ({
@@ -31,12 +45,17 @@ export const restoredHouseholds = (households) => ({
   payload: households,
 });
 
-export const revisionUpdated = ({ id, _rev }) => ({
+export const revisionUpdated = ({ id, rev }) => ({
   type: REVISION_UPDATED,
-  payload: { id, _rev },
+  payload: { id, _rev: rev },
 });
 
-export const actions = { createdHousehold, updatedHousehold, revisionUpdated };
+export const actions = {
+  createdHousehold,
+  updatedHousehold,
+  revisionUpdated,
+  openedHousehold,
+};
 
 export default function reducer(state = [], action) {
   switch (action.type) {

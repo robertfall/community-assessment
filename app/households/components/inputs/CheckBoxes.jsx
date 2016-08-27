@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import startCase from 'lodash/startCase';
 import chunk from 'lodash/chunk';
 import without from 'lodash/without';
@@ -19,10 +19,11 @@ const parse = (option, value, onChange) =>
 
 const realName = (name) => name.split('.')[-1];
 
-const children = ({ options, name, includeOther, value, onChange }) => {
+const children = ({ options, name, includeOther, input }) => {
   const optionsWithOther = includeOther
                          ? options.concat('Other')
                          : options;
+  const { onChange, value } = input;
 
   return chunk(optionsWithOther, 3).map((row, index) => (
     <div key={index}>
@@ -45,8 +46,8 @@ const children = ({ options, name, includeOther, value, onChange }) => {
   ));
 };
 
-const CheckBoxes = ({ input }) => {
-  const { label, name } = input;
+const CheckBoxes = (props) => {
+  const { label, name } = props;
   return (
     <div>
       <label
@@ -56,20 +57,18 @@ const CheckBoxes = ({ input }) => {
         {label || startCase(realName(name))}
       </label>
       <div className="col-md-6">
-        {children(input)}
+        {children(props)}
       </div>
     </div>
   );
 };
 
 CheckBoxes.propTypes = {
-  input: PropTypes.shape({
-    value: PropTypes.any.isRequired,
-    options: PropTypes.array.isRequired,
-    name: PropTypes.string,
-    label: PropTypes.string,
-    includeOther: PropTypes.bool,
-  }).isRequired,
+  name: PropTypes.string,
+  label: PropTypes.string,
+  value: PropTypes.any.isRequired,
+  options: PropTypes.array.isRequired,
+  includeOther: PropTypes.bool,
 };
 
 export default (props) => (

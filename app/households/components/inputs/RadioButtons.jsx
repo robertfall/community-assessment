@@ -60,7 +60,7 @@ export default class RadioButtons extends Component {
           {this.labelText()}
         </label>
         <div className="col-md-6">
-          { this.children() }
+          {this.children()}
         </div>
       </div>
     );

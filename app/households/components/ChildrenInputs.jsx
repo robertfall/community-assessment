@@ -7,18 +7,18 @@ import { FieldArray } from 'redux-form';
 const renderChildren = ({ fields }) => (
   <tbody>
     {
-      fields.map((child, index) => (
+      fields.map((name, index) => (
         <tr key={index}>
           <td>{index + 1}</td>
-          <td><TableTextInput name={`${child}.surname`} /></td>
-          <td><TableTextInput name={`${child}.name`} /></td>
-          <td><TableTextInput name={`${child}.dateOfBirth`} /></td>
-          <td><TableTextInput name={`${child}.age`} /></td>
-          <td><TableTextInput name={`${child}.gender`} /></td>
-          <td><TableTextInput name={`${child}.timeBreastfed`} /></td>
-          <td><TableTextInput name={`${child}.timeBottlefed`} /></td>
-          <td><TableTextInput name={`${child}.ageWeaned`} /></td>
-          <td><TableTextInput name={`${child}.immunization`} /></td>
+          <td><TableTextInput name={`${name}.surname`} /></td>
+          <td><TableTextInput name={`${name}.name`} /></td>
+          <td><TableTextInput name={`${name}.dateOfBirth`} /></td>
+          <td><TableTextInput name={`${name}.age`} /></td>
+          <td><TableTextInput name={`${name}.gender`} /></td>
+          <td><TableTextInput name={`${name}.timeBreastfed`} /></td>
+          <td><TableTextInput name={`${name}.timeBottlefed`} /></td>
+          <td><TableTextInput name={`${name}.ageWeaned`} /></td>
+          <td><TableTextInput name={`${name}.immunization`} /></td>
           <td>
             <a
               className="btn btn-danger"

@@ -1,10 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Field } from 'redux-form';
 
-const realName = (name) => {
-  const pathParts = name.split('.');
-  return pathParts[pathParts.length - 1];
-};
 const TableTextInput = (props) => {
   const { name } = props;
   return (
@@ -13,14 +9,15 @@ const TableTextInput = (props) => {
       component="input"
       type="text"
       className={`form-control ${props.className}`}
-      id={realName(name)}
-      name={realName(name)}
+      id={name}
+      name={name}
     />
   );
 };
 
 TableTextInput.propTypes = {
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  className: PropTypes.string,
 };
 
 export default TableTextInput;

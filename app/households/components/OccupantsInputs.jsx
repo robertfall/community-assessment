@@ -5,10 +5,17 @@ import { FieldArray } from 'redux-form';
 const renderOccupants = ({ fields }) => (
   <tbody>
     {
-      fields.map((occupant, index) => <OccupantRow key={index} occupant={occupant} index={index} />)
+      fields.map((occupant, index) => (
+        <OccupantRow
+          key={index}
+          occupant={occupant}
+          index={index}
+          remove={() => fields.remove(index)}
+        />
+      ))
     }
     <tr>
-      <td colSpan={26} className="text-center">
+      <td colSpan={27} className="text-center">
         <a
           className="btn btn-primary"
           onClick={() => fields.push({})}
@@ -93,6 +100,7 @@ export default () => (
               <div><span>Problems With Vision</span></div>
             </th>
             <th>Comments</th>
+            <th></th>
           </tr>
         </thead>
         <FieldArray name="occupants.occupants" component={renderOccupants} />

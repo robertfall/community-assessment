@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import TableTextInput from './inputs/TableTextInput';
 import TableBooleanCheckbox from './inputs/TableBooleanCheckbox';
 
-const OccupantRow = ({ occupant, index }) => (
+const OccupantRow = ({ occupant, index, remove }) => (
   <tr>
     <td>{index + 1}</td>
     <td><TableTextInput name={`${occupant}.surname`} /></td>
@@ -30,6 +30,11 @@ const OccupantRow = ({ occupant, index }) => (
     <td><TableBooleanCheckbox name={`${occupant}.disability`} /></td>
     <td><TableBooleanCheckbox name={`${occupant}.problemsWithVision`} /></td>
     <td><TableTextInput name={`${occupant}.comments`} /></td>
+    <td>
+      <a className="btn btn-danger" onClick={remove} >
+        Remove
+      </a>
+    </td>
   </tr>
 );
 

@@ -86,7 +86,7 @@ function startPack() {
         });
       } else {
         // build for current platform only
-        pack(os.platform(), os.arch(), log(os.platform(), os.arch()));
+        pack('win32', 'x64', log(os.platform(), os.arch()));
       }
     })
     .catch(err => {
