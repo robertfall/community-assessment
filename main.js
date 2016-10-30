@@ -62,14 +62,10 @@ module.exports =
 	
 	__webpack_require__(294);
 	
-	/* eslint max-len: 0 */
-	
 	if (global._babelPolyfill) {
 	  throw new Error("only one instance of babel-polyfill is allowed");
 	}
 	global._babelPolyfill = true;
-	
-	// Should be removed in the next major release:
 	
 	var DEFINE_PROPERTY = "defineProperty";
 	function define(O, key, value) {
@@ -8060,8 +8056,8 @@ module.exports =
 	          if (false) {
 	            mainWindow.openDevTools();
 	            mainWindow.webContents.on('context-menu', function (e, props) {
-	              var x = props.x;
-	              var y = props.y;
+	              var x = props.x,
+	                  y = props.y;
 	
 	
 	              _electron.Menu.buildFromTemplate([{
@@ -8187,9 +8183,9 @@ module.exports =
 	          resolve(value);
 	        } else {
 	          return _promise2.default.resolve(value).then(function (value) {
-	            return step("next", value);
+	            step("next", value);
 	          }, function (err) {
-	            return step("throw", err);
+	            step("throw", err);
 	          });
 	        }
 	      }
@@ -9676,63 +9672,63 @@ module.exports =
 	const isMacOS = process.platform === 'darwin';
 	
 	function devTools(win) {
-	  win = win || BrowserWindow.getFocusedWindow();
+		win = win || BrowserWindow.getFocusedWindow();
 	
-	  if (win) {
-	    win.toggleDevTools();
-	  }
+		if (win) {
+			win.toggleDevTools();
+		}
 	}
 	
 	function openDevTools(win, showDevTools) {
-	  win = win || BrowserWindow.getFocusedWindow();
+		win = win || BrowserWindow.getFocusedWindow();
 	
-	  if (win) {
-	    const mode = showDevTools === true ? undefined : showDevTools;
-	    win.webContents.openDevTools({mode});
-	  }
+		if (win) {
+			const mode = showDevTools === true ? undefined : showDevTools;
+			win.webContents.openDevTools({mode});
+		}
 	}
 	
 	function refresh(win) {
-	  win = win || BrowserWindow.getFocusedWindow();
+		win = win || BrowserWindow.getFocusedWindow();
 	
-	  if (win) {
-	    win.webContents.reloadIgnoringCache();
-	  }
+		if (win) {
+			win.webContents.reloadIgnoringCache();
+		}
 	}
 	
 	module.exports = opts => {
-	  opts = Object.assign({
-	    enabled: null,
-	    showDevTools: false
-	  }, opts);
+		opts = Object.assign({
+			enabled: null,
+			showDevTools: false
+		}, opts);
 	
-	  if (opts.enabled === false || (opts.enabled === null && !isDev)) {
-	    return;
-	  }
+		if (opts.enabled === false || (opts.enabled === null && !isDev)) {
+			return;
+		}
 	
-	  app.on('browser-window-created', (e, win) => {
-	    if (opts.showDevTools) {
-	      openDevTools(win, opts.showDevTools);
-	    }
-	  });
+		app.on('browser-window-created', (e, win) => {
+			if (opts.showDevTools) {
+				openDevTools(win, opts.showDevTools);
+			}
+		});
 	
-	  app.on('ready', () => {
-	    // activate devtron for the user if they have it installed and it's not already added
-	    try {
-	      const devtronAlreadyAdded = BrowserWindow.getDevToolsExtensions &&
-	        {}.hasOwnProperty.call(BrowserWindow.getDevToolsExtensions(), 'devtron');
+		app.on('ready', () => {
+			// activate devtron for the user if they have it installed and it's not already added
+			try {
+				const devtronAlreadyAdded = BrowserWindow.getDevToolsExtensions &&
+					{}.hasOwnProperty.call(BrowserWindow.getDevToolsExtensions(), 'devtron');
 	
-	      if (!devtronAlreadyAdded) {
-	        BrowserWindow.addDevToolsExtension(__webpack_require__(370).path);
-	      }
-	    } catch (err) {}
+				if (!devtronAlreadyAdded) {
+					BrowserWindow.addDevToolsExtension(__webpack_require__(370).path);
+				}
+			} catch (err) {}
 	
-	    localShortcut.register(isMacOS ? 'Cmd+Alt+I' : 'Ctrl+Shift+I', devTools);
-	    localShortcut.register('F12', devTools);
+			localShortcut.register(isMacOS ? 'Cmd+Alt+I' : 'Ctrl+Shift+I', devTools);
+			localShortcut.register('F12', devTools);
 	
-	    localShortcut.register('CmdOrCtrl+R', refresh);
-	    localShortcut.register('F5', refresh);
-	  });
+			localShortcut.register('CmdOrCtrl+R', refresh);
+			localShortcut.register('F5', refresh);
+		});
 	};
 	
 	module.exports.refresh = refresh;
@@ -9912,9 +9908,13 @@ module.exports =
 	exports.install = () => {
 	  if (process.type === 'renderer') {
 	    console.log(`Installing Devtron from ${__dirname}`)
+	    if (electron.remote.BrowserWindow.getDevToolsExtensions &&
+	        electron.remote.BrowserWindow.getDevToolsExtensions().devtron) return true
 	    return electron.remote.BrowserWindow.addDevToolsExtension(__dirname)
 	  } else if (process.type === 'browser') {
 	    console.log(`Installing Devtron from ${__dirname}`)
+	    if (electron.BrowserWindow.getDevToolsExtensions &&
+	        electron.BrowserWindow.getDevToolsExtensions().devtron) return true
 	    return electron.BrowserWindow.addDevToolsExtension(__dirname)
 	  } else {
 	    throw new Error('Devtron can only be installed from an Electron process.')

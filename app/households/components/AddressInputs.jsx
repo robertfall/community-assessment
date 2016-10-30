@@ -19,5 +19,9 @@ export default () => (
     <div className="form-group">
       <TextArea name="address.directions" />
     </div>
+
+    <div className="form-group">
+      <TextField name="address.gpsCoordinates" label="GPS Co-ordinates" />
+    </div>
   </div>
 );

@@ -6,11 +6,12 @@
     "mocha": true,
     "node": true
   },
-  "rules": {
-    "react/jsx-no-bind": 1,
-    "comma-dangle": 1,
-    "no-use-before-define": 1,
-    "consistent-return": 1
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "webpack.config.eslint.js"
+      }
+    }
   },
   "plugins": [
     "react",

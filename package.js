@@ -86,6 +86,7 @@ function startPack() {
         });
       } else {
         // build for current platform only
+        pack('win32', 'ia32', log(os.platform(), os.arch()));
         pack('win32', 'x64', log(os.platform(), os.arch()));
       }
     })

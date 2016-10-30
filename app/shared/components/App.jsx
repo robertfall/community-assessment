@@ -3,10 +3,11 @@ import { Link } from 'react-router';
 import households from 'households';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import { selectSyncing } from 'shared/state';
 
 const { createdHousehold } = households.actions;
 
-const App = ({ loaded, children, onCreateHousehold }) => (
+const App = ({ loaded, children, onCreateHousehold, syncing }) => (
   loaded
   ? <div>
     <nav className="navbar navbar-inverse navbar-fixed-top">
@@ -21,6 +22,11 @@ const App = ({ loaded, children, onCreateHousehold }) => (
         <ul className="nav navbar-nav">
           <li><a onClick={onCreateHousehold}>New Household</a></li>
           <li><Link to="households">Existing Households</Link></li>
+          { syncing && (
+            <li>
+              <a>Syncing...</a>
+            </li>
+          )}
         </ul>
       </div>
     </nav>
@@ -35,15 +41,17 @@ App.propTypes = {
   children: PropTypes.element.isRequired,
   onCreateHousehold: PropTypes.func.isRequired,
   loaded: PropTypes.bool,
+  syncing: PropTypes.bool,
 };
 
-const selectDbLoaded = (state) => state.pouch.loaded;
+const selectDbLoaded = state => state.pouch.loaded;
 
 export default connect(
-  (state) => ({
+  state => ({
     loaded: selectDbLoaded(state),
+    syncing: selectSyncing(state),
   }),
-  (dispatch) => ({
+  dispatch => ({
     onCreateHousehold: () => {
       const householdAction = createdHousehold();
       dispatch(householdAction);

@@ -4,6 +4,8 @@ import { DefaultValues } from './model';
 
 export const CREATED = 'households/created';
 export const UPDATED = 'households/updated';
+export const RECEIVED = 'households/received';
+export const SYNCED = 'households/synced';
 export const RESTORED = 'households/restored';
 export const OPENED = 'households/opened';
 export const REVISION_UPDATED = 'households/revision-updated';
@@ -19,7 +21,18 @@ function emptyHousehold(id = UUID.v4().toString()) {
   };
 }
 
-export const createdHousehold = (id) => ({
+export const receivedHousehold = household => ({
+  type: RECEIVED,
+  payload: {
+    ...household,
+  },
+});
+
+export const syncedHouseholds = () => ({
+  type: SYNCED,
+});
+
+export const createdHousehold = id => ({
   type: CREATED,
   payload: emptyHousehold(id),
 });
@@ -35,12 +48,12 @@ const updatedHousehold = (household) => {
   };
 };
 
-const openedHousehold = (id) => ({
+const openedHousehold = id => ({
   type: OPENED,
   payload: id,
 });
 
-export const restoredHouseholds = (households) => ({
+export const restoredHouseholds = households => ({
   type: RESTORED,
   payload: households,
 });
@@ -61,13 +74,17 @@ export default function reducer(state = [], action) {
   switch (action.type) {
     case CREATED:
       return [...state, action.payload];
+    case RECEIVED:
     case UPDATED:
-      return state.map((household) => {
-        if (household.id === action.payload.id) {
-          return Object.assign({}, household, action.payload);
-        }
-        return household;
-      });
+      if (_.some(state, household => household.id === action.payload.id)) {
+        return state.map((household) => {
+          if (household.id === action.payload.id) {
+            return Object.assign({}, household, action.payload);
+          }
+          return household;
+        });
+      }
+      return [...state, action.payload];
     case RESTORED:
       return action.payload;
     case REVISION_UPDATED:

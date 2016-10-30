@@ -6,6 +6,7 @@ import { push } from 'react-router-redux';
 
 const { createdHousehold } = households.actions;
 
+
 const Menu = ({ onCreateHousehold }) => (
   <div className="text-center">
     <h3>Community Assessment Data Capturing</h3>

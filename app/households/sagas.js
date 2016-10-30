@@ -1,4 +1,6 @@
 import { call, take, fork, put, select } from 'redux-saga/effects';
+
+import { dbRestored } from 'shared/state';
 import {
   CREATED,
   UPDATED,
@@ -8,7 +10,6 @@ import {
   selectHousehold,
   revisionUpdated,
 } from './state';
-import { dbRestored } from 'shared/state';
 
 function* createHousehold(action) {
   const pouch = window.db;
@@ -44,9 +45,10 @@ function* createIfNecessary({ payload }) {
 function* restoreFromDisk() {
   const pouch = window.db;
   const { rows } = yield call([pouch, pouch.allDocs], { include_docs: true });
-  yield put(restoredHouseholds(rows.map((r) => r.doc)));
+  yield put(restoredHouseholds(rows.map(r => r.doc)));
   yield put(dbRestored());
 }
+
 
 export default function* householdSaga() {
   yield fork(restoreFromDisk);

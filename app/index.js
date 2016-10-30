@@ -2,15 +2,21 @@ import React from 'react';
 import { render } from 'react-dom';
 import { hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import configureStore from './store/configureStore';
+import configureStore from 'store/configureStore';
 import Application from 'Application';
 import setupPouch from 'helpers/pouch';
-import rootSaga from './saga';
-import './app.global.css';
+import rootSaga from 'saga';
+import { updatedSyncConfig } from 'shared/state';
+import 'app.global.css';
+
+
+console.error('Replace the url and login credentials');
+const REMOTE_DB_URL = 'http:///community-assessment-dev';
 
 const store = configureStore(hashHistory);
 window.db = setupPouch();
 
+store.dispatch(updatedSyncConfig(REMOTE_DB_URL, window.db));
 store.sagaMiddleware.run(rootSaga);
 
 const history = syncHistoryWithStore(hashHistory, store);
@@ -22,7 +28,8 @@ render(
 
 if (module.hot) {
   module.hot.accept('Application', () => {
-    const NextApplication = require('Application');
+    const NextApplication = require('./Application');
+
     render(
       <NextApplication store={store} history={history} />,
       document.getElementById('root')
