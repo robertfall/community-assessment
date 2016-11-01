@@ -5,6 +5,7 @@ import {
   CREATED,
   UPDATED,
   OPENED,
+  DELETED,
   restoredHouseholds,
   createdHousehold,
   selectHousehold,
@@ -16,6 +17,15 @@ function* createHousehold(action) {
   try {
     const result = yield call([pouch, pouch.put], action.payload);
     yield put(revisionUpdated(result));
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function* deleteHousehold(action) {
+  const pouch = window.db;
+  try {
+    const result = yield call([pouch, pouch.remove], action.payload);
   } catch (error) {
     console.error(error);
   }
@@ -38,6 +48,7 @@ function* updateHousehold(action) {
 function* createIfNecessary({ payload }) {
   const existingHousehold = yield select(selectHousehold, payload);
   if (!existingHousehold) {
+    console.log('Creating Househould: ', payload);
     yield put(createdHousehold(payload));
   }
 }
@@ -60,6 +71,9 @@ export default function* householdSaga() {
         break;
       case UPDATED:
         yield fork(updateHousehold, action);
+        break;
+      case DELETED:
+        yield fork(deleteHousehold, action);
         break;
       case OPENED:
         yield fork(createIfNecessary, action);

@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import _ from 'lodash';
 import moment from 'moment';
 import { push } from 'react-router-redux';
-
+import { deletedHousehold } from 'households/state';
 import { selectPage } from '../state';
 
 const addressSummary = (address) => [
@@ -20,6 +20,7 @@ const row = (
     careWorker,
     children,
     editHousehold,
+    deleteHousehold,
     headOfHousehold,
     occupants,
     updatedAt,
@@ -33,6 +34,7 @@ const row = (
     <td key="occupants">{occupants.occupants.length}</td>
     <td key="children">{children.childs.length}</td>
     <td key="updated" className="updated">{moment(updatedAt).format('YYYY-MM-DD HH:mm')}</td>
+    <td><button onClick={deleteHousehold}>Delete</button></td>
   </tr>
 );
 
@@ -40,6 +42,7 @@ row.propTypes = {
   address: PropTypes.string,
   careWorker: PropTypes.string,
   editHousehold: PropTypes.func.isRequired,
+  deleteHousehold: PropTypes.func.isRequired,
   headOfHousehold: PropTypes.string,
   id: PropTypes.string,
   updatedAt: PropTypes.object.isRequired,
@@ -47,7 +50,7 @@ row.propTypes = {
   children: PropTypes.array,
 };
 
-const Index = ({ households, editHousehold }) => (
+const Index = ({ households, editHousehold, deleteHousehold }) => (
   <div>
     <h1>Existing Households</h1>
     <table className="table table-striped table-sm table-hover">
@@ -59,10 +62,20 @@ const Index = ({ households, editHousehold }) => (
           <th>Occupants</th>
           <th>Children</th>
           <th>Updated</th>
+          <th />
         </tr>
       </thead>
       <tbody>
-        {households.map((household, index) => row({ ...household, editHousehold }, index))}
+        {
+          households.map((household, index) => row({
+            ...household,
+            editHousehold,
+            deleteHousehold: (e) => {
+              e.stopPropagation();
+              deleteHousehold(household);
+            },
+          }, index))
+        }
       </tbody>
     </table>
   </div>
@@ -71,6 +84,7 @@ const Index = ({ households, editHousehold }) => (
 Index.propTypes = {
   households: PropTypes.array.isRequired,
   editHousehold: PropTypes.func.isRequired,
+  deleteHousehold: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -82,10 +96,13 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    editHousehold: (id) => {
+    editHousehold(id) {
       dispatch(push(`/households/${id}`));
     },
+    deleteHousehold(household) {
+      dispatch(deletedHousehold(household));
+    },
   };
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Index);

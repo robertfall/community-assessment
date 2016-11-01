@@ -11,7 +11,7 @@ import 'app.global.css';
 
 
 console.error('Replace the url and login credentials');
-const REMOTE_DB_URL = 'http:///community-assessment-dev';
+const REMOTE_DB_URL = 'http://community-assessment-dev';
 
 const store = configureStore(hashHistory);
 window.db = setupPouch();

@@ -66,9 +66,7 @@ const CheckBoxes = (props) => {
 CheckBoxes.propTypes = {
   name: PropTypes.string,
   label: PropTypes.string,
-  value: PropTypes.any.isRequired,
   options: PropTypes.array.isRequired,
-  includeOther: PropTypes.bool,
 };
 
 export default (props) => (

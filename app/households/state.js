@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { DefaultValues } from './model';
 
 export const CREATED = 'households/created';
+export const DELETED = 'households/deleted';
 export const UPDATED = 'households/updated';
 export const RECEIVED = 'households/received';
 export const SYNCED = 'households/synced';
@@ -35,6 +36,11 @@ export const syncedHouseholds = () => ({
 export const createdHousehold = id => ({
   type: CREATED,
   payload: emptyHousehold(id),
+});
+
+export const deletedHousehold = household => ({
+  type: DELETED,
+  payload: household,
 });
 
 const updatedHousehold = (household) => {
@@ -74,6 +80,8 @@ export default function reducer(state = [], action) {
   switch (action.type) {
     case CREATED:
       return [...state, action.payload];
+    case DELETED:
+      return _.reject(state, household => household.id === action.payload.id);
     case RECEIVED:
     case UPDATED:
       if (_.some(state, household => household.id === action.payload.id)) {
