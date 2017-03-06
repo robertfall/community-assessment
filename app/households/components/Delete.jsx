@@ -1,16 +1,17 @@
 import { connect } from 'react-redux';
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
-import _ from 'lodash';
 import moment from 'moment';
+import { Link } from 'react-router';
 import { push } from 'react-router-redux';
-import { selectPage } from '../state';
+
+import { selectHousehold } from '../state';
+import { deletedHousehold } from 'households/state';
+
 
 const addressSummary = (address) => [
   _.get(address, 'address'),
   _.get(address, 'area'),
 ].join(' ');
-
 
 const row = (
   {
@@ -33,14 +34,6 @@ const row = (
     <td key="occupants">{occupants.occupants.length}</td>
     <td key="children">{children.childs.length}</td>
     <td key="updated" className="updated">{moment(updatedAt).format('YYYY-MM-DD HH:mm')}</td>
-    <td>
-      <Link
-        to={`households/${id}/delete`}
-        onClick={e => e.stopPropagation()}
-      >
-        Delete
-      </Link>
-    </td>
   </tr>
 );
 
@@ -56,9 +49,9 @@ row.propTypes = {
   children: PropTypes.array,
 };
 
-const Index = ({ households, editHousehold, deleteHousehold }) => (
+const Delete = ({ household, deleteHousehold }) => (
   <div>
-    <h1>Existing Households</h1>
+    <h1>Are you sure you want to delete the household?</h1>
     <table className="table table-striped table-sm table-hover">
       <thead>
         <tr>
@@ -68,44 +61,37 @@ const Index = ({ households, editHousehold, deleteHousehold }) => (
           <th>Occupants</th>
           <th>Children</th>
           <th>Updated</th>
-          <th />
         </tr>
       </thead>
       <tbody>
-        {
-          households.map((household, index) => row({
-            ...household,
-            editHousehold,
-            deleteHousehold: (e) => {
-              e.stopPropagation();
-              deleteHousehold(household);
-            },
-          }, index))
-        }
+        { row(household) }
       </tbody>
     </table>
+    <br />
+    <div className="text-center">
+      <button
+        className="btn btn-danger btn-lg"
+        onClick={() => deleteHousehold(household)}
+      >Delete</button>
+      &nbsp;
+      <Link className="btn btn-primary btn-lg" to="households">Cancel</Link>
+    </div>
   </div>
 );
 
-Index.propTypes = {
-  households: PropTypes.array.isRequired,
-  editHousehold: PropTypes.func.isRequired,
-  deleteHousehold: PropTypes.func.isRequired,
-};
-
 function mapStateToProps(state, ownProps) {
-  const page = ownProps.location.query.page || 1;
   return {
-    households: selectPage(state, page, 10),
+    household: selectHousehold(state, ownProps.params.id),
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    editHousehold(id) {
-      dispatch(push(`/households/${id}`));
+    deleteHousehold(household) {
+      dispatch(deletedHousehold(household));
+      dispatch(push('/households'));
     },
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Index);
+export default connect(mapStateToProps, mapDispatchToProps)(Delete);

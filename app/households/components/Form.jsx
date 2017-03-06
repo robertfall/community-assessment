@@ -7,6 +7,7 @@ import { Link } from 'react-router';
 import { push } from 'react-router-redux';
 import lifecycle from 'shared/components/lifecycle';
 
+
 import { actions, selectHousehold } from '../state';
 const { updatedHousehold, openedHousehold } = actions;
 
@@ -86,6 +87,7 @@ function mapDispatchToProps(dispatch, { params }) {
 
 const form = {
   form: 'communityAssessment',
+  enableReinitialize: 'true',
 };
 
 const LifecycleForm = lifecycle(Form);

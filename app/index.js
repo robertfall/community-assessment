@@ -9,9 +9,7 @@ import rootSaga from 'saga';
 import { updatedSyncConfig } from 'shared/state';
 import 'app.global.css';
 
-
-console.error('Replace the url and login credentials');
-const REMOTE_DB_URL = 'http://community-assessment-dev';
+const REMOTE_DB_URL = 'https://community:community@uofs.gingerbiscuit.co.za/households';
 
 const store = configureStore(hashHistory);
 window.db = setupPouch();

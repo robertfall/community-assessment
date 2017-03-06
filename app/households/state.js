@@ -11,7 +11,7 @@ export const RESTORED = 'households/restored';
 export const OPENED = 'households/opened';
 export const REVISION_UPDATED = 'households/revision-updated';
 
-function emptyHousehold(id = UUID.v4().toString()) {
+function emptyHousehold(id = UUID.v1().toString()) {
   const now = new Date();
   return {
     _id: id,
@@ -79,7 +79,7 @@ export const actions = {
 export default function reducer(state = [], action) {
   switch (action.type) {
     case CREATED:
-      return [...state, action.payload];
+      return _.orderBy([...state, action.payload], 'updatedAt', 'desc');
     case DELETED:
       return _.reject(state, household => household.id === action.payload.id);
     case RECEIVED:
@@ -92,9 +92,9 @@ export default function reducer(state = [], action) {
           return household;
         });
       }
-      return [...state, action.payload];
+      return _.orderBy([...state, action.payload], 'updatedAt', 'desc');
     case RESTORED:
-      return action.payload;
+      return _.orderBy(action.payload, 'updatedAt', 'desc');
     case REVISION_UPDATED:
       return state.map((household) => {
         if (household.id === action.payload.id) {
@@ -114,6 +114,6 @@ export function selectHousehold(state, id) {
 
 export function selectPage(state, page, pageSize) {
   const indexedPage = page - 1;
-  const households = state.households.slice(indexedPage * pageSize, page * pageSize);
+  const households = state.households;
   return households;
 }

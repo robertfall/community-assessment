@@ -108,7 +108,7 @@ function pack(plat, arch, cb) {
         extension = '.ico';
       }
       return extension;
-    })()
+    })(),
   };
 
   const opts = Object.assign({}, DEFAULT_OPTS, iconObj, {
@@ -116,7 +116,7 @@ function pack(plat, arch, cb) {
     arch,
     prune: true,
     'app-version': pkg.version || DEFAULT_OPTS.version,
-    out: `release/${plat}-${arch}`
+    out: `release/${plat}-${arch}`,
   });
 
   packager(opts, cb);
